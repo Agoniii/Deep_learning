@@ -24,8 +24,15 @@ RNNs背后蕴含的思想是利用序列信息。在传统的神经网络中，�
 
 上图展示了RNN展开成一个完整网络的样子。这里我们所说的“展开”只是指一个表达完整的语句的网络。例如，我们所关心的语句具有5个单词，那么网络将会展开成一个5层的神经网络，一层表示一个单词。RNN的计算所遵循的公式如下所示：
 
-* ![x_{t}](http://s0.wp.com/latex.php?zoom=2&latex=x_t&bg=ffffff&fg=000&s=0)是时间步数![t](http://s0.wp.com/latex.php?zoom=2&latex=t&bg=ffffff&fg=000&s=0)时的输入。
-* 
+* ![x_{t}](http://s0.wp.com/latex.php?zoom=2&latex=x_t&bg=ffffff&fg=000&s=0)是时间步数![t](http://s0.wp.com/latex.php?zoom=2&latex=t&bg=ffffff&fg=000&s=0)时的输入。例如，![x_1](http://s0.wp.com/latex.php?zoom=2&latex=x_1&bg=ffffff&fg=000&s=0)可以是对应于一个语句第二个单词的one-hot矢量(不懂one-hot就自己搜一下吧)。
+* ![s_t](http://s0.wp.com/latex.php?zoom=2&latex=s_t&bg=ffffff&fg=000&s=0)是时步![t](http://s0.wp.com/latex.php?zoom=2&latex=t&bg=ffffff&fg=000&s=0)时的隐藏状态。这是网络的"memory"(记忆单元)。![s_t](http://s0.wp.com/latex.php?zoom=2&latex=s_t&bg=ffffff&fg=000&s=0)是基于之前的隐藏状态和当前时步的输入:![s_t=f(Ux_t + Ws_{t-1}](http://s0.wp.com/latex.php?zoom=2&latex=s_t%3Df%28Ux_t+%2B+Ws_%7Bt-1%7D%29&bg=ffffff&fg=000&s=0)来计算的。函数![f](http://s0.wp.com/latex.php?zoom=2&latex=f&bg=ffffff&fg=000&s=0)通常是一个非线性函数，例如**tanh**或者**ReLU**。![s_{-1}](http://s0.wp.com/latex.php?zoom=2&latex=s_%7B-1%7D&bg=ffffff&fg=000&s=0)通常会初始化为0，这个量在计算第一个隐藏状态时会被用到。
+* ![o_t](http://s0.wp.com/latex.php?zoom=2&latex=o_t&bg=ffffff&fg=000&s=0)是时步![t](http://s0.wp.com/latex.php?zoom=2&latex=t&bg=ffffff&fg=000&s=0)时刻的输出。比方说，如果我们想要预测一个语句的下一个单词，那么他就是一个关于我们的词汇的概率分布矢量。![o_t=\mathrm{softmax}(Vs_t)](http://s0.wp.com/latex.php?zoom=2&latex=o_t+%3D+%5Cmathrm%7Bsoftmax%7D%28Vs_t%29&bg=ffffff&fg=000&s=0)
+
+有需要注意的几点列举如下：
+
+* 你可以把隐藏状态![s_t](http://s0.wp.com/latex.php?zoom=2&latex=s_t&bg=ffffff&fg=000&s=0)看做网络的记忆单元。![s_t](http://s0.wp.com/latex.php?zoom=2&latex=s_t&bg=ffffff&fg=000&s=0)会获取之前所有时步发生的信息。![o_t](http://s0.wp.com/latex.php?zoom=2&latex=o_t&bg=ffffff&fg=000&s=0)会仅基于时步![t](http://s0.wp.com/latex.php?zoom=2&latex=t&bg=ffffff&fg=000&s=0)时的memory进行计算。正如前面简要提到的那样，
+*
+*
 
 
 
